@@ -17,7 +17,7 @@ fn get_result(a: &str, b: &str) -> (u32, u32) {
 
 fn main() {
     let input = fs::read_to_string("./day2.txt").expect("Could not read file");
-    let rounds: Vec<&str> = input.split("\n").collect();
+    let rounds: Vec<&str> = input.lines().collect();
     let mut score = 0;
 
     for round in rounds.iter() {

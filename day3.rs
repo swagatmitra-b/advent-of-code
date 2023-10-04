@@ -61,7 +61,7 @@ fn get_val(c: char) -> u32 {
 
 fn main() {
     let input = fs::read_to_string("./day3.txt").expect("Could not read file");
-    let rucksacks: Vec<&str> = input.split("\n").collect();
+    let rucksacks: Vec<&str> = input.line().collect();
     let mut sum = 0;
     for rucksack in rucksacks {
         let mut set = HashSet::new();
