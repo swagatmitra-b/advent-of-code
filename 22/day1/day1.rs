@@ -11,7 +11,7 @@ fn main() {
         max_cal: 0,
     };
     let input = fs::read_to_string("./day1.txt").unwrap();
-    let calorie_array: Vec<String> = input.line().map(|x| x.to_string()).collect();
+    let calorie_array: Vec<String> = input.lines().map(|x| x.to_string()).collect();
     for (idx, calorie_bunch) in calorie_array.iter().enumerate() {
         let mut count = 0;
         let calories: Vec<u32> = calorie_bunch
