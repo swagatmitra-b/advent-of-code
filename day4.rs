@@ -10,13 +10,12 @@ fn main() {
                 .collect()
         })
         .collect();
-    let (mut min, mut max) = (0, 0);
-    for i in 0..array.len() {
+        for i in 0..array.len() {
         let a1 = array[i][0][0].parse::<u32>();
         let a2 = array[i][0][1].parse::<u32>();
         let b1 = array[i][1][0].parse::<u32>();
         let b2 = array[i][1][1].parse::<u32>();
-        
+
         if let (Ok(a1), Ok(a2), Ok(b1), Ok(b2)) = (a1, a2, b1, b2) {
             if a1 >= b1 && a2 <= b2 {
                 println!("{}-{}", a1, a2);
@@ -25,7 +24,4 @@ fn main() {
             }
         }
     }
-    
 }
-
-
