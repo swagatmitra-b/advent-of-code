@@ -1,31 +1,34 @@
 use std::fs;
 
-struct Elf {
-    index: usize,
-    max_cal: u32,
-}
-
 fn main() {
-    let mut result = Elf {
-        index: 0,
-        max_cal: 0,
-    };
+    let mut max_cal = 0;
+    let mut sec_max = 0;
+    let mut third_max = 0;
     let input = fs::read_to_string("./day1.txt").unwrap();
-    let calorie_array: Vec<String> = input.lines().map(|x| x.to_string()).collect();
-    for (idx, calorie_bunch) in calorie_array.iter().enumerate() {
-        let mut count = 0;
-        let calories: Vec<u32> = calorie_bunch
-            .split("\n")
-            .filter(|x| !x.trim().is_empty()) 
-            .map(|x| x.parse().unwrap())
-            .collect();
-        for calorie in calories {
-            count += calorie;
+    let blocks: Vec<Vec<u32>> = input
+        .split("\n\n")
+        .map(|block| {
+            block
+                .split_whitespace()
+                .filter_map(|s| s.parse().ok())
+                .collect()
+        })
+        .collect();
+    for calorie_blocks in blocks {
+        let mut sum = 0;
+        for calorie in calorie_blocks {
+            sum += calorie;
         }
-        if count > result.max_cal {
-            result.max_cal = count;
-            result.index = idx + 1
+        if sum > max_cal {
+            third_max = sec_max;
+            sec_max = max_cal;
+            max_cal = sum;
+        } else if sum > sec_max && sum < max_cal {
+            third_max = sec_max;
+            sec_max = sum;
+        } else if sum > third_max && sum < sec_max {
+            third_max = sum;
         }
     }
-    println!("{} {}", result.max_cal, result.index);
+    println!("{} {}", max_cal, max_cal+sec_max+third_max);
 }

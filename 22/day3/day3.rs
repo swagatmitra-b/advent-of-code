@@ -63,7 +63,7 @@ fn main() {
     let input = fs::read_to_string("./day3.txt").expect("Could not read file");
     let rucksacks: Vec<&str> = input.lines().collect();
     let mut sum = 0;
-    for rucksack in rucksacks {
+    for rucksack in &rucksacks {
         let mut set = HashSet::new();
         let (first, last) = rucksack.split_at(rucksack.len() / 2);
         let mut common: Option<char> = None;
@@ -85,5 +85,47 @@ fn main() {
             None => println!("no common chars!"),
         }
     }
-    println!("{}", sum)
+    println!("{}", sum);
+    part2(&rucksacks);
+}
+
+fn part2(rucksack: &Vec<&str>) {
+    let mut sum = 0;
+    let mut rucks = vec![];
+    for (idx, _) in rucksack.iter().enumerate() {
+        if (idx + 1) % 3 == 0 {
+            rucks.push([rucksack[idx - 2], rucksack[idx - 1], rucksack[idx]])
+        }
+    }
+    for group in rucks {
+        let mut hash = HashSet::new();
+        let mut hash2 = HashSet::new();
+        for (idx, lines) in group.iter().enumerate() {
+            match idx {
+                0 => {
+                    for chars in lines.chars() {
+                        hash.insert(chars);
+                    }
+                },
+                1 => {
+                    for chars in lines.chars() {
+                        if hash.contains(&chars) {
+                            hash2.insert(chars);
+                        }
+                    }
+                },
+                2 => {
+                    for chars in lines.chars() {
+                        if hash2.contains(&chars) {
+                            let value = get_val(chars);
+                            sum += value;
+                            break;
+                        }
+                    }
+                }
+                _ => println!("nothing in common")
+            }
+        }
+    }
+    println!("{}", sum);
 }
