@@ -1,7 +1,8 @@
 use std::fs;
+use std::collections::HashMap;
 
 fn main() {
-    let input = fs::read_to_string("./day3.txt").unwrap();
+    let input = fs::read_to_string("./day4.txt").unwrap();
     let cards: Vec<Vec<&str>> = input
         .split("\n")
         .map(|card| card.split(":").collect::<Vec<&str>>())
@@ -26,9 +27,7 @@ fn main() {
                 points.push(*number);
             }
         }
-        println!("{:?}", hands[1]);
         println!("{:?} {:?}", winning, in_hand);
-        println!("{:?}", points);
         let n = points.len() as u32;
         if n != 0 {
             total_points += u32::pow(2, n - 1);
