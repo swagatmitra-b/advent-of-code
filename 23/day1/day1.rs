@@ -59,7 +59,7 @@ fn main() {
                 if exists {
                     if let Some(&value) = string_nums.get(num_string.as_str()) {
                         num_string.clear();
-                        // num_string.push(char);
+                        num_string.push(char);
                         if first == 0 {
                             first = value;
                         } else {
@@ -67,8 +67,11 @@ fn main() {
                         }
                     }
                 } else {
-                    num_string.clear();
-                    num_string.push(char);
+                    if !num_string.is_empty() {
+                        num_string.remove(0);
+                    } else {
+                        num_string.push(char);
+                    }               
                 }
             }
         }
@@ -76,7 +79,7 @@ fn main() {
             second = first;
         }
         sum += 10 * first + second;
-        println!("{}. {} {}", idx+1, first, second,);
+        println!("{}. {} {}", idx + 1, first, second);
     }
     println!("{}", sum);
 }
